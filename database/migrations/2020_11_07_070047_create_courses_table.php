@@ -22,7 +22,7 @@ class CreateCoursesTable extends Migration
             $table->string('tags');
             $table->bigInteger('instructor_id')->unsigned();
             $table->timestamps();
-            $table->foreign('instructor_id')->references('id')->on('instructors');
+            $table->foreign('instructor_id')->references('id')->on('instructors')->onDelete('cascade');
         });
     }
 

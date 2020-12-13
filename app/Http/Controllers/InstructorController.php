@@ -17,23 +17,22 @@ class InstructorController extends Controller
     }
 
     public function store(Request $request){
-        $this->validate($request, $this->rules());
+        $this->validate($request, [
+            'user_id'   => 'required|numeric|unique:instructors,user_id',
+            'aoe'       => 'required',
+            'rating'    => 'required|numeric',
+        ]);
 
         Instructor::create($request->all());
-
         return redirect('/instructors')->with('info', 'New instructor has been added');   
 
     }
 
-    public function edit($id){
-        $instructor = Instructor::find($id);
-        
+    public function edit(Instructor $instructor){
         return view('instructors.edit', ['instructor'=>$instructor]);
     }
 
-    public function update(Request $request, $id){
-        $instructor = Instructor::find($id);
-
+    public function update(Request $request, Instructor $instructor){
         $this->validate($request, [
             'aoe'       => 'required',
             'rating'    => 'required|numeric',
@@ -43,11 +42,11 @@ class InstructorController extends Controller
         return redirect('/instructors')->with('info', "Updated Successfully!");   
     }
 
-    public function rules(){
-        return [
-            'user_id'   => 'required|numeric',
-            'aoe'       => 'required',
-            'rating'    => 'required|numeric',
-        ];
+    public function delete(Request $request){
+        $instructorId = $request['instructor_id'];
+        $instructor = Instructor::find($instructorId);
+        $name = $instructor->user->fname . " " . $instructor->user->lname;
+        $instructor->delete();
+        return  redirect('/instructors')->with('info', "The record of $name has been deleted successfully.");   
     }
 }

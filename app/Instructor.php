@@ -17,4 +17,14 @@ class Instructor extends Model
     public function courses(){
         return $this->hasMany('App\Course');
     }
+
+    public static function list(){
+        $instructors = Instructor::get();
+        $list = [];
+        
+        foreach($instructors as $i){
+            $list[$i->id] = $i->user->lname . ", " . $i->user->fname;
+        }
+        return $list;
+    }
 }

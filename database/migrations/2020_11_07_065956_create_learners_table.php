@@ -19,7 +19,7 @@ class CreateLearnersTable extends Migration
             $table->string('level'); //novice, intermediate, advanced
             $table->string('status');//account status whether active, inactive, suspended
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

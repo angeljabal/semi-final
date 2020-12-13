@@ -4,7 +4,7 @@
 <div class="form-group">
 {{-- only displays full name of the user --}}
     <label>Full Name</label>
-    <h5><?=$learner->user->lname . ", " . $learner->user->fname?></h5>
+    <h5>{{$learner->user->lname . ", " . $learner->user->fname}}</h5>
 </div>
 @else
 <div class="form-group">

@@ -19,7 +19,7 @@ class CreateInstructorsTable extends Migration
             $table->string('aoe'); // area of expertise
             $table->float('rating');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
